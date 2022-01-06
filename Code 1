@@ -3,8 +3,8 @@ const unsigned long keySampleIntervalMs = 25;
 byte longKeyPressCountMax = 80;    // 80 * 25 = 2000 ms
 byte longKeyPressCount = 0;
 unsigned long TimerA = 1500;
-byte prevKeyState = HIGH;         // button is active low
-const byte keyPin = 8;            // button is connected to pin 2 and GND
+byte prevKeyState = HIGH;         
+const byte keyPin = 8;            
 const int LED = 6;
 const int LEDdetect = 5;
 const int RELAY = 7;
@@ -13,7 +13,7 @@ volatile bool turnOff = false;
 volatile long offAt = 0;
 int BUTTONstate = 0;
 int LEDstate = 0;
-// called when button is kept pressed for less than 2 seconds
+
 void shortKeyPress() {
   LEDstate = digitalRead(LEDdetect);
   if (LEDstate == HIGH)
@@ -26,7 +26,6 @@ void shortKeyPress() {
 }
 
 
-// called when button is kept pressed for more than 2 seconds
 void longKeyPress() {
         if( (millis() - last ) > 20 ) //if at least 20 ms has passed since last press, this is not a dup
     {
@@ -38,13 +37,9 @@ void longKeyPress() {
 }
 
 
-// called when key goes from not pressed to pressed
 void keyPress() {
-    Serial.println("key press");
 }
 
-
-// called when key goes from pressed to not pressed
 void keyRelease() {
     Serial.println("key release");
     if (longKeyPressCount >= longKeyPressCountMax) {
@@ -90,7 +85,7 @@ void loop() {
   {
    if(millis() >= offAt)
     {
-       digitalWrite(LED, LOW); //turn off led
+       digitalWrite(LED, LOW); 
     } 
   }
   BUTTONstate = digitalRead(keyPin);
@@ -100,5 +95,5 @@ void loop() {
   } 
   else{
     digitalWrite(RELAY, LOW);
-  }   // other code goes here
+  } 
 }
